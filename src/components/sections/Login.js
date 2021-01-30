@@ -7,6 +7,7 @@ import Button from "react-bootstrap/Button";
 
 import { loginRequest } from "../functions/ApiRequest";
 import { GetUser } from "../sections/Users";
+import { GetFunction } from "../sections/Function"
 
 const Login = () => {
 
@@ -43,6 +44,7 @@ const Login = () => {
     }
 
     var userarea = GetUser(usertype, user_id)
+    var functionarea = GetFunction(user_id)
 
 if (isLoggedIn === false) {
     return (
@@ -77,6 +79,7 @@ if (isLoggedIn === false) {
     return (
         <div>
             <div>{userarea}</div>
+            <div>{functionarea}</div>
             <Button block size="lg" onClick={() => setIsLoggedIn(false)}>Logout</Button>
         </div>
         

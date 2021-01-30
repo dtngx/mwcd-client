@@ -46,6 +46,7 @@ export const GetUser = (type, id) => {
             <Button block size="lg" type="button" onClick={() => setFeature(<Share/>)}>
                 Share Project Files
             </Button>
+            <div>{feature}</div>
         </div>
         )
     }
@@ -65,7 +66,9 @@ export const GetUser = (type, id) => {
             <Button block size="lg" type="button">
                 Manage Users
             </Button>
+            <div>{feature}</div>
         </div>
+        
         )
     } else {
         <div>
