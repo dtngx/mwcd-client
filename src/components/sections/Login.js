@@ -24,17 +24,25 @@ const Login = () => {
         return username.length > 0 && password.length > 0;
     }
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
         console.log("Login clicked!");
         var requestData = {
             username: username,
             password: password
         }
-        console.log(loginRequest(requestData));
+        var res = await loginRequest(requestData);
+        console.log(res)
+        if (res.message == "success") {
+            setUsertype(res.data)
+            setUser_Id(res.user_id)
+            setIsLoggedIn(true)
+        } else {
+            setAlert("Username or Password incorrect.")
+        }
     }
 
-
+if (isLoggedIn == false) {
     return (
         <div className="Login">
             <Form onSubmit={handleSubmit}>
@@ -56,6 +64,15 @@ const Login = () => {
             </Form>
         </div>
     )
+} else {
+    return (
+        <div>
+            <h1>Successfully logged in.</h1>
+            <Button  onClick={(e) => setIsLoggedIn(false)}> Logout </Button>
+        </div>
+    )
+}
+    
 };
 
 export default Login;

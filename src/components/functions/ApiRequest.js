@@ -20,20 +20,27 @@ function postRequest(props) {
         window.alert("Response = " + data);
     });
 }
-    
+
 var output = ""
 
 export const loginRequest = (data) => {
-    axios.post("http://localhost:8085/users/login", data)
+    let validation = axios.post("http://localhost:8085/users/login", data)
     .then((response) => {
-        var resData = response.data;
-        if (resData.message == "success") {
-            output = resData.data;
-        } else {
-            output = resData.message;
-        }
-    });
-    
-    //this here should return resData.data or resData.message
-    return output
+     var resData = response.data;
+     if (resData.message == "success") {
+         return ({
+             message: "success",
+             data: resData.data,
+             user_id: resData.user_id
+         }
+         );
+     } else {
+         return ({
+            message: "fail",
+            data: resData.message
+         }
+         );
+     }
+    })   
+    return validation;
 }
