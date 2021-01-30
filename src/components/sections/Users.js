@@ -1,52 +1,55 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
+import Project from "../sections/Projects";
+import Knowledge from "../sections/Knowledge"
+import Share from "../sections/Share"
 
 
 
-export const getUser = (type, id) => {
-    var feature
+export const GetUser = (type, id) => {
+    const [feature, setFeature] = useState("");
 
-
-    if (type == "Employee") {
+    if (type === "Employee") {
         return (
             <div>
                 <h1 style={{
                     color: "dodgerblue"
                 }}>{type} Area</h1>
                 <br></br>
-                <Button block size="lg" type="button">
+                <Button block size="lg" type="button" onClick={() => setFeature(<Project/>)}>
                     My Projects
                 </Button>
-                <Button block size="lg" type="button">
+                <Button block size="lg" type="button" onClick={() => setFeature(<Knowledge/>)}>
                     Access Knowlegde Base
                 </Button>
-                <Button block size="lg" type="button">
+                <Button block size="lg" type="button" onClick={() => setFeature(<Share/>)}>
                     Share Project Files
                 </Button>
+                <div>{feature}</div>
             </div>
         )
     
     } 
-    if (type == "Client") {
+    if (type === "Client") {
         return (
             <div>
                 <h1 style={{
                     color: "limegreen"
                 }}>{type} Area</h1>
                 <br></br>
-            <Button block size="lg" type="button">
+            <Button block size="lg" type="button" onClick={() => setFeature(<Project/>)}>
                 My Projects
             </Button>
-            <Button block size="lg" type="button">
+            <Button block size="lg" type="button" onClick={() => setFeature(<Knowledge/>)}>
                 Access Knowlegde Base
             </Button>
-            <Button block size="lg" type="button">
+            <Button block size="lg" type="button" onClick={() => setFeature(<Share/>)}>
                 Share Project Files
             </Button>
         </div>
         )
     }
-    if (type == "Manager") {
+    if (type === "Manager") {
         return (
             <div>
                 <h1 style={{

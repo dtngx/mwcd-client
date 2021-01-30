@@ -1,12 +1,12 @@
 import "./Login.css";
 
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import { loginRequest } from "../functions/ApiRequest";
-import { getUser } from "../sections/Users";
+import { GetUser } from "../sections/Users";
 
 const Login = () => {
 
@@ -14,13 +14,11 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [alert, setAlert] = useState("");
     const [usertype, setUsertype] = useState("");
+    const [feature, setFeature] = useState("");
 
     const [user_id, setUser_Id] = useState(0);
-    const user_idValue = { user_id, setUser_Id };
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const loginValue = { isLoggedIn, setIsLoggedIn };
-
 
     function validateForm() {
         return username.length > 0 && password.length > 0;
@@ -44,9 +42,9 @@ const Login = () => {
         }
     }
 
-    var userarea = getUser(usertype, user_id)
+    var userarea = GetUser(usertype, user_id)
 
-if (isLoggedIn == false) {
+if (isLoggedIn === false) {
     return (
         <div className="Login">
             <Form onSubmit={handleSubmit}>
@@ -68,7 +66,8 @@ if (isLoggedIn == false) {
 
                 <h6 style={{
                     color: "grey",
-                }}>For this demo, you can login using "employee", "client" or "manager" as username and respective password.
+                }}>For this demo, you can login using "employee", "client" or "manager" as username and password.
+                Login as manager to create new users, you can then also login with.
                 </h6>
 
             </Form>

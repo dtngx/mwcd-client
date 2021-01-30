@@ -11,13 +11,15 @@ function getRequest(props) {
     });
 }
 
-function postRequest(props) {
-    axios.post(props.url, props.data)
+export const postRequest = (url, data) => {
+    let result = axios.post(url, data)
     .then((response) => {
         var resData = response.data;
         let data = JSON.stringify(resData);
-        window.alert("Response = " + data);
+        // window.alert("Response = " + data);
+        return resData;
     });
+    return result;
 }
 
 var output = ""
