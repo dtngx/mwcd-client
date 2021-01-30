@@ -61,13 +61,21 @@ if (isLoggedIn == false) {
                 <h5 style={{
                     color: "orangered",
                 }}>{alert}</h5>
+
+                <h6 style={{
+                    color: "grey",
+                }}>For this demo, you can login using "employee", "client" or "manager" as username and respective password.
+                </h6>
+
             </Form>
         </div>
     )
 } else {
     return (
         <div>
-            <h1>Successfully logged in.</h1>
+            <h1 style={{color: "dodgerblue"}}>{usertype} area.</h1>
+            <h2>Please select what you want to do:</h2>
+
             <Button  onClick={(e) => setIsLoggedIn(false)}> Logout </Button>
         </div>
     )
