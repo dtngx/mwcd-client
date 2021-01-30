@@ -5,7 +5,8 @@ import React, { Component, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import { loginRequest } from "../functions/ApiRequest"
+import { loginRequest } from "../functions/ApiRequest";
+import { getUser } from "../sections/Users";
 
 const Login = () => {
 
@@ -20,6 +21,7 @@ const Login = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const loginValue = { isLoggedIn, setIsLoggedIn };
 
+
     function validateForm() {
         return username.length > 0 && password.length > 0;
     }
@@ -33,7 +35,7 @@ const Login = () => {
         }
         var res = await loginRequest(requestData);
         console.log(res)
-        if (res.message == "success") {
+        if (res.message === "success") {
             setUsertype(res.data)
             setUser_Id(res.user_id)
             setIsLoggedIn(true)
@@ -41,6 +43,8 @@ const Login = () => {
             setAlert("Username or Password incorrect.")
         }
     }
+
+    var userarea = getUser(usertype, user_id)
 
 if (isLoggedIn == false) {
     return (
@@ -73,11 +77,10 @@ if (isLoggedIn == false) {
 } else {
     return (
         <div>
-            <h1 style={{color: "dodgerblue"}}>{usertype} area.</h1>
-            <h2>Please select what you want to do:</h2>
-
-            <Button  onClick={(e) => setIsLoggedIn(false)}> Logout </Button>
+            <div>{userarea}</div>
+            <Button block size="lg" onClick={() => setIsLoggedIn(false)}>Logout</Button>
         </div>
+        
     )
 }
     
