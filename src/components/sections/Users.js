@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
-import Project from "../sections/Projects";
-import Knowledge from "../sections/Knowledge"
-import Share from "../sections/Share"
-
+import { GetFeature } from "../sections/Features"
 
 
 export const GetUser = (type, id) => {
     const [feature, setFeature] = useState("");
+    var content = GetFeature(feature, id)
 
     if (type === "Employee") {
         return (
@@ -16,16 +14,16 @@ export const GetUser = (type, id) => {
                     color: "dodgerblue"
                 }}>{type} Area</h1>
                 <br></br>
-                <Button block size="lg" type="button" onClick={() => setFeature(<Project/>)}>
+                <Button block size="lg" type="button" onClick={() => setFeature("project")}>
                     My Projects
                 </Button>
-                <Button block size="lg" type="button" onClick={() => setFeature(<Knowledge/>)}>
+                <Button block size="lg" type="button" onClick={() => setFeature("knowledge")}>
                     Access Knowlegde Base
                 </Button>
-                <Button block size="lg" type="button" onClick={() => setFeature(<Share/>)}>
+                <Button block size="lg" type="button" onClick={() => setFeature("share")}>
                     Share Project Files
                 </Button>
-                <div>{feature}</div>
+                <div>{content}</div>
             </div>
         )
     
@@ -37,16 +35,16 @@ export const GetUser = (type, id) => {
                     color: "limegreen"
                 }}>{type} Area</h1>
                 <br></br>
-            <Button block size="lg" type="button" onClick={() => setFeature(<Project/>)}>
+            <Button block size="lg" type="button" onClick={() => setFeature("project")}>
                 My Projects
             </Button>
-            <Button block size="lg" type="button" onClick={() => setFeature(<Knowledge/>)}>
+            <Button block size="lg" type="button" onClick={() => setFeature("knowledge")}>
                 Access Knowlegde Base
             </Button>
-            <Button block size="lg" type="button" onClick={() => setFeature(<Share/>)}>
+            <Button block size="lg" type="button" onClick={() => setFeature("share")}>
                 Share Project Files
             </Button>
-            <div>{feature}</div>
+            <div>{content}</div>
         </div>
         )
     }
@@ -57,16 +55,16 @@ export const GetUser = (type, id) => {
                     color: "orangered"
                 }}>{type} Area</h1>
                 <br></br>
-            <Button block size="lg" type="button">
+            <Button block size="lg" type="button" onClick={() => setFeature("project")}>
                 Manage Projects
             </Button>
             <Button block size="lg" type="button">
                 Manager Knowledge
             </Button>
-            <Button block size="lg" type="button">
+            <Button block size="lg" type="button" onClick={() => setFeature("userman")}>
                 Manage Users
             </Button>
-            <div>{feature}</div>
+            <div>{content}</div>
         </div>
         
         )

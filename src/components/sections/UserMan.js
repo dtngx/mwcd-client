@@ -1,28 +1,52 @@
-/* Continue here
+import { useState } from "react";
+
+import { postRequest } from "../functions/ApiRequest"
 
 
 function UserMan() {
-    return (
-<div>
-<h3>Project ID:</h3>
-<input type="text" placeholer="Project ID: 00000" value={projectID} onChange={e => setProjectID(e.target.value)} />
-<br></br>
-<h3>Project Name:</h3>
-<input type="text" placeholer="Project Name" value={projectName} onChange={e => setProjectName(e.target.value)} />
-<br></br>
-<h3>Project Start Date:</h3>
-<input type="text" placeholer="Project Start Date: ex. 15-12-2020" value={projectDate} onChange={e => setProjectDate(e.target.value)} />
-<br></br>
-<h3>Project Team::</h3>
-<input type="text" placeholer="Projectteam" value={projectteam} onChange={e => setProjectTeam(e.target.value)} />
-<br></br>
-<button onClick={saveProjectsHandler}>Add Project</button>
 
-</div>
+    const [uid, setUID] = useState();
+    const [uname, setUname] = useState("");
+    const [pword, setPword] = useState("");
+    const [utype, setUtype] = useState("")
+
+
+    async function saveUserHandler(event) {
+        event.preventDefault();
+            const value = {
+                user_id: uid,
+                username: uname,
+                password: pword,
+                usertype: utype
+            };
+    
+            var res = await postRequest("http://localhost:8085/users/", value)
+            console.log(res)
+        }
+
+    
+    return (
+        <form>
+            <h1>Add User:</h1>
+            <h3>User ID:</h3>
+            <input type="text" placeholer="UserID: 00000" value={uid} onChange={(e) => setUID(e.target.value)} />
+            <br></br>
+            <h3>Username:</h3>
+            <input type="text" placeholer="Username" value={uname} onChange={e => setUname(e.target.value)} />
+            <br></br>
+            <h3>Password:</h3>
+            <input type="text" placeholer="Password" value={pword} onChange={e => setPword(e.target.value)} />
+            <br></br>
+            <h3>Usertype:</h3>
+            <input type="text" placeholer="Usertype" value={utype} onChange={e => setUtype(e.target.value)} />
+            <br></br>
+            <br></br>
+            <button type="submit" onClick={saveUserHandler}>Add User</button>
+        </form>
+
 
     )
 }
 
 export default UserMan;
 
-*/

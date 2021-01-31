@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { postRequest, getRequest } from "../functions/ApiRequest"
+import { postRequest } from "../functions/ApiRequest"
 import { JsonToTable } from "react-json-to-table";
 
-function Project() {
+function Project()  {
     var array = [];
     var i;
     const [displaydata, setDisplayData] = useState([]);
@@ -17,42 +17,24 @@ function Project() {
         team_id: "1"
     })
 
-
-
-   async function teammemberGet() {
-
+    async function projectGet() {
+       
         var ros = await postRequest("http://localhost:8085/tms/",data);
         if (ros.message === "success") {
             setMembership(await ros.data)
         }
-        console.log(ros.data)
-    }
 
-    async function projectGet() {
-
-
-
-        
-        for (i = 0; i < membership.length; i ++) {
-            console.log(membership[i])
-            
+        for (i = 0; i < membership.length; i ++) {            
             var res = await postRequest("http://localhost:8085/userproject/", membership[i]);
             if (res.message === "success") {
                 array.push(await res.data)
+                var newJSON = {
+                    data: array
+                }
             }
-            console.log(await res.data)
-            
         }
-    console.log(array)
-    var newJSON = {
-        data: array
-    }
-    var pJSON = JSON.stringify(newJSON)
-    var parsedJSON = JSON.parse(pJSON)
-    setDisplayData(newJSON)
-    console.log(parsedJSON)
-    
 
+    setDisplayData(newJSON)
     }
 
     async function saveProjectsHandler() {
@@ -73,26 +55,26 @@ function Project() {
         <div>
             <h1>My Projects</h1>
             <button onClick={() => projectGet()}>Refresh Projects</button>
-            <button onClick={() => teammemberGet()}>Get Teammembership</button>
-        <JsonToTable json={displaydata}/>
+            <br></br>
+             <JsonToTable json={displaydata}/>
 
             <br></br>
+            <hr></hr>
 
-            <h3>Project ID:</h3>
+            <h1>Add new Project:</h1>
+            <h3 style={{color: "grey"}}>Project ID:</h3>
             <input type="text" placeholer="Project ID: 00000" value={projectID} onChange={e => setProjectID(e.target.value)} />
             <br></br>
-            <h3>Project Name:</h3>
+            <h3 style={{color: "grey"}}>Project Name:</h3>
             <input type="text" placeholer="Project Name" value={projectName} onChange={e => setProjectName(e.target.value)} />
             <br></br>
-            <h3>Project Start Date:</h3>
+            <h3 style={{color: "grey"}}>Project Start Date:</h3>
             <input type="text" placeholer="Project Start Date: ex. 15-12-2020" value={projectDate} onChange={e => setProjectDate(e.target.value)} />
             <br></br>
-            <h3>Project Team::</h3>
+            <h3 style={{color: "grey"}}>Project Team::</h3>
             <input type="text" placeholer="Projectteam" value={projectteam} onChange={e => setProjectTeam(e.target.value)} />
             <br></br>
             <button onClick={saveProjectsHandler}>Add Project</button>
-            
-            
         </div>
     )
 }
