@@ -1,48 +1,81 @@
 import { useState } from "react";
-import { postRequest } from "../functions/ApiRequest"
+import { postRequest, getRequest } from "../functions/ApiRequest"
+import { JsonToTable } from "react-json-to-table";
 
 function Project() {
-    let data = {
-        user_id: 1
-    }
-    const [displaydata, setDisplayData] = useState({ data: [{ project_id: 0, name: "empty", startdate: "0000-00-00" }] });
+    var array = [];
+    var i;
+    const [displaydata, setDisplayData] = useState([]);
     const [projectName, setProjectName] = useState('');
     const [projectDate, setProjectDate] = useState('');
     const [projectID, setProjectID] = useState(0);
     const [projectteam, setProjectTeam] = useState(0);
+    const [data, setData] = useState({
+        user_id: 1
+    })
+    const [membership, setMembership] = useState({
+        team_id: "1"
+    })
 
 
 
+   async function teammemberGet() {
 
+        var ros = await postRequest("http://localhost:8085/tms/",data);
+        if (ros.message === "success") {
+            setMembership(await ros.data)
+        }
+        console.log(ros.data)
+    }
 
     async function projectGet() {
-        var res = await postRequest("http://localhost:8085/userproject/", data);
-        console.log(res.data)
-        if (res.message === "success") {
-            setDisplayData(res.data);
+
+
+
+        
+        for (i = 0; i < membership.length; i ++) {
+            console.log(membership[i])
+            
+            var res = await postRequest("http://localhost:8085/userproject/", membership[i]);
+            if (res.message === "success") {
+                array.push(await res.data)
+            }
+            console.log(await res.data)
+            
         }
+    console.log(array)
+    var newJSON = {
+        data: array
+    }
+    var pJSON = JSON.stringify(newJSON)
+    var parsedJSON = JSON.parse(pJSON)
+    setDisplayData(newJSON)
+    console.log(parsedJSON)
+    
+
     }
 
     async function saveProjectsHandler() {
-        console.log("send")
         const value = {
             project_id: projectID,
             name: projectName,
             startdate: projectDate,
-            projectteam: projectteam
+            projectteam: projectteam,
+            user_id: data.user_id
         };
-        console.log(value)
-        var res = await postRequest("http://localhost:8085/projects/", value)
-        console.log("here")
-        console.log(res.data)
+
+        await postRequest("http://localhost:8085/projects/", value)
+
+        await postRequest("http://localhost:8085/teammember/", value)
     }
 
     return (
         <div>
-            <h1>Projects</h1>
+            <h1>My Projects</h1>
             <button onClick={() => projectGet()}>Refresh Projects</button>
-            <div>
-            {displaydata.project_id}
+            <button onClick={() => teammemberGet()}>Get Teammembership</button>
+        <JsonToTable json={displaydata}/>
+
             <br></br>
 
             <h3>Project ID:</h3>
@@ -59,7 +92,7 @@ function Project() {
             <br></br>
             <button onClick={saveProjectsHandler}>Add Project</button>
             
-            </div>
+            
         </div>
     )
 }
