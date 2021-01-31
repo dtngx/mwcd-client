@@ -35,7 +35,7 @@ function UserMan() {
             <input type="text" placeholer="Username" value={uname} onChange={e => setUname(e.target.value)} />
             <br></br>
             <h3>Password:</h3>
-            <input type="text" placeholer="Password" value={pword} onChange={e => setPword(e.target.value)} />
+            <input type="password" placeholer="Password" value={pword} onChange={e => setPword(e.target.value)} />
             <br></br>
             <h3>Usertype:</h3>
             <input type="text" placeholer="Usertype" value={utype} onChange={e => setUtype(e.target.value)} />

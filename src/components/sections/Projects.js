@@ -24,21 +24,23 @@ function Project(props)  {
         var ros = await postRequest("http://localhost:8085/tms/",data);
         if (ros.message === "success") {
             setMembership(await ros.data)
+            console.log(membership)
         }
 
         
 
-        for (i = 0; i < membership.length; i ++) {            
+        for (i = 0; i <= membership.length; i ++) {            
             var res = await postRequest("http://localhost:8085/userproject/", membership[i]);
             if (res.message === "success") {
                 array.push(await res.data)
                 var newJSON = {
                     data: array
                 }
+                console.log(res.data)
             }
         }
 
-    setDisplayData(newJSON)
+    setDisplayData(await newJSON)
     }
 
     async function saveProjectsHandler() {
@@ -53,6 +55,7 @@ function Project(props)  {
         await postRequest("http://localhost:8085/projects/", value)
 
         await postRequest("http://localhost:8085/teammember/", value)
+
     }
 
     return (

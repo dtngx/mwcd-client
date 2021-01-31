@@ -13,7 +13,7 @@ export const GetUser = (type, id) => {
                 <h1 style={{
                     color: "dodgerblue"
                 }}>{type} Area</h1>
-                <h5>ID: {id}</h5>
+                <h5>Your ID: {id}</h5>
                 <br></br>
                 <Button block size="lg" type="button" onClick={() => setFeature("project")}>
                     My Projects
@@ -35,7 +35,7 @@ export const GetUser = (type, id) => {
                 <h1 style={{
                     color: "limegreen"
                 }}>{type} Area</h1>
-                <h5>ID: {id}</h5>
+                <h5>Your ID: {id}</h5>
                 <br></br>
             <Button block size="lg" type="button" onClick={() => setFeature("project")}>
                 My Projects
@@ -56,7 +56,7 @@ export const GetUser = (type, id) => {
                 <h1 style={{
                     color: "orangered"
                 }}>{type} Area</h1>
-                <h5>ID: {id}</h5>
+                <h5>Your ID: {id}</h5>
                 <br></br>
             <Button block size="lg" type="button" onClick={() => setFeature("project")}>
                 Manage Projects
