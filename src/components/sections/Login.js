@@ -9,14 +9,15 @@ import { loginRequest } from "../functions/ApiRequest";
 import { GetUser } from "../sections/Users";
 
 const Login = () => {
-
+    
+    const [user_id, setUser_Id] = useState(0);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [alert, setAlert] = useState("");
     const [usertype, setUsertype] = useState("");
     const [feature, setFeature] = useState("");
 
-    const [user_id, setUser_Id] = useState(0);
+    
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 

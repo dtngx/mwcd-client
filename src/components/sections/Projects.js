@@ -2,20 +2,23 @@ import { useState } from "react";
 import { postRequest } from "../functions/ApiRequest"
 import { JsonToTable } from "react-json-to-table";
 
-function Project(props)  {
+function Project()  {
     var array = [];
     var i;
     const [displaydata, setDisplayData] = useState([]);
-    const [projectName, setProjectName] = useState('');
-    const [projectDate, setProjectDate] = useState('');
-    const [projectID, setProjectID] = useState(0);
-    const [projectteam, setProjectTeam] = useState(0);
     const [data, setData] = useState({
         user_id: 1
     })
     const [membership, setMembership] = useState({
         team_id: "1"
     })
+
+
+    const [projectName, setProjectName] = useState('');
+    const [projectDate, setProjectDate] = useState('');
+    const [projectID, setProjectID] = useState(0);
+    const [projectteam, setProjectTeam] = useState(0);
+  
 
     async function projectGet() {
 
