@@ -2,7 +2,7 @@ import { useState } from "react";
 import { postRequest } from "../functions/ApiRequest"
 import { JsonToTable } from "react-json-to-table";
 
-function Project()  {
+function Project(props)  {
     var array = [];
     var i;
     const [displaydata, setDisplayData] = useState([]);
@@ -18,11 +18,15 @@ function Project()  {
     })
 
     async function projectGet() {
+
+
        
         var ros = await postRequest("http://localhost:8085/tms/",data);
         if (ros.message === "success") {
             setMembership(await ros.data)
         }
+
+        
 
         for (i = 0; i < membership.length; i ++) {            
             var res = await postRequest("http://localhost:8085/userproject/", membership[i]);
@@ -54,6 +58,9 @@ function Project()  {
     return (
         <div>
             <h1>My Projects</h1>
+            <h3 style={{color: "grey"}}>Get Projects for ID:</h3>
+            <input type="text" placeholer="#" value={data.user_id} onChange={e => setData({user_id: e.target.value})} />
+            <br></br>
             <button onClick={() => projectGet()}>Refresh Projects</button>
             <br></br>
              <JsonToTable json={displaydata}/>
